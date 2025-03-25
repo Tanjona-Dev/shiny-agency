@@ -5,7 +5,7 @@ import Survey from "./pages/Survey";
 import Header from "./components/Header";
 import { createRoot } from "react-dom/client";
 import ClientFrom from "./components/ClientForm/index";
-import FreelanceForm from "./components/FreelanceForm/FreelanceForm";
+import FreelanceForm from "./pages/FreelanceForm/FreelanceForm";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Error from "./components/Error";
 import Result from "./components/Result/Result";

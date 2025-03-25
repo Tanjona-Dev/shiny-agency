@@ -1,6 +1,8 @@
 function Result() {
-    return(
-        <h2>Resultat</h2>
-    )
+  return (
+    <div>
+      <h1>Resultat</h1>
+    </div>
+  );
 }
-export default Result
+export default Result;

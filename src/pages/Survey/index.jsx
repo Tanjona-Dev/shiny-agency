@@ -1,36 +1,12 @@
-import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Survey() {
-  const [Qnumber, setQnumber] = useState("");
-  const [buttonName, setButtonName] = useState("Suivant");
   const { questionNumber } = useParams();
-  const navigate = useNavigate();
+  const questionNumberInt = parseInt(questionNumber);
 
-  useEffect(() => {
-    setQnumber(parseInt(questionNumber));
-  }, [questionNumber]);
-
-  function Suivant() {
-    if (Qnumber === 10) {
-      navigate("/Result");
-    }
-    if (Qnumber === 9) {
-      setButtonName("Resultat");
-    }
-    if (Qnumber < 10) {
-      const nextQ = Qnumber + 1;
-      setQnumber(nextQ);
-      navigate(`/Survey/${nextQ}`);
-    }
-  }
-  function Preview() {
-    if (Qnumber >= 2) {
-      const prevQ = Qnumber - 1;
-      setQnumber(prevQ);
-      navigate(`/Survey/${prevQ}`);
-    }
-  }
+  const PreviewNbr = questionNumberInt === 1 ? 1 : questionNumberInt - 1;
+  const Next = questionNumberInt + 1;
 
   return (
     <div>
@@ -41,8 +17,13 @@ function Survey() {
 
       <div>
         <br />
-        <button onClick={() => Preview()}>Precedent</button>
-        <button onClick={() => Suivant()}>{buttonName}</button>
+        <Link to={`/Survey/${PreviewNbr}`}>Preview</Link>
+        <br />
+        {questionNumberInt === 10 ? (
+          <Link to={`/Result`}>Resultat</Link>
+        ) : (
+          <Link to={`/Survey/${Next}`}>Next</Link>
+        )}
       </div>
     </div>
   );
