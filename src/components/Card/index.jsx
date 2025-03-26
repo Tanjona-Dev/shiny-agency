@@ -16,6 +16,9 @@ border-radius: 50%;
 const CardWarpper = styled.div`
   display: flex; 
   flex-direction: column;
+  align-items: center;
+  gap: 10%;
+  justify-content: center;
   padding: 15px;
   background-color: ${colors.backgroundLight};
   border-radius: 30px;
@@ -30,7 +33,7 @@ const CardWarpper = styled.div`
 function Card({ picture, label, title }) {
 
   return (
-    <CardWarpper style={{ display: "flex", flexDirection: "column", padding: 15 }}>
+    <CardWarpper >
       <CardLabel>{label}</CardLabel>
       <CardImage src={picture} alt="freelance" />
       <span>{title}</span>
