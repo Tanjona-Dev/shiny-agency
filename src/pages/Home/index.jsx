@@ -12,7 +12,6 @@ function Home() {
           <br />
           <br />
           <LinksHome>Faire le test</LinksHome>
-
         </TextHome>
       </div>
       <div>
@@ -35,7 +34,7 @@ const TextHome = styled.div`
   font-size: 2em;
   font-weight: bold;
   max-width: 600px;
- text-align: center;
+  text-align: center;
 `;
 const Container2 = styled.div`
   background-color: rgb(141, 138, 138, 0.09);
@@ -50,7 +49,6 @@ const Container2 = styled.div`
   height: auto;
   margin: auto;
   margin-top: 10vh;
-  
 `;
 const Image = styled.img`
   width: 100%;
@@ -58,6 +56,5 @@ const Image = styled.img`
   height: auto;
   margin: 0 auto;
 `;
-
 
 export default Home;
