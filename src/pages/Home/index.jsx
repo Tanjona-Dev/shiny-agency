@@ -3,16 +3,17 @@ import { Link } from "react-router-dom";
 import colors from "../../utils/style/colors";
 import homeImg from "../../assets/home-illustration.svg";
 
-
 function Home() {
   return (
     <Container2>
       <div>
         <TextHome>
           Repérez vos besoins, on s’occupe du reste, avec les meilleurs talents
-          <br /><br />
+          <br />
+          <br />
+          <LinksHome>Faire le test</LinksHome>
+
         </TextHome>
-        <LinksHome>Faire le test</LinksHome>
       </div>
       <div>
         <Image src={homeImg} alt="" />
@@ -25,39 +26,38 @@ const LinksHome = styled(Link)`
   border-radius: 30px;
   background-color: ${colors.primary};
   padding: 10px;
-  font-size: 1.5em;
-  margin-left: 300px;
   padding-left: 25px;
   padding-rigth: 25px;
-  `;
+  font-size: 0.5em;
+`;
 
 const TextHome = styled.div`
-  font-size: 3.2em;
+  font-size: 2em;
   font-weight: bold;
-  width: 50%;
-  margin-left: 300px;
-  @media (max-width: 800px) {
-    font-size: 1.5em;
-    position: absolute;
-    top: 45%;
-    left: 15%;
-  }
+  max-width: 600px;
+ text-align: center;
 `;
 const Container2 = styled.div`
-  margin: 50px;
-  width: 92%;
-  height: 100vh;
-  background-color: rgb(141, 138, 138, 0.05);
+  background-color: rgb(141, 138, 138, 0.09);
   display: flex;
   align-items: center;
-  @media (max-width: 800px){
-    display: flex;
-    flex-wrap: wrap;
-  }
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+  padding: 50px 20px
+  text-align: center;
+  width: 90vw;
+  height: auto;
+  margin: auto;
+  margin-top: 10vh;
+  
 `;
 const Image = styled.img`
-  margin-right: 300px;
-`
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  margin: 0 auto;
+`;
 
 
 export default Home;
