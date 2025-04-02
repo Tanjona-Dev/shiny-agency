@@ -20,9 +20,6 @@ function FreelanceForm() {
     }
     fetchFreelances();
   }, []);
-  useEffect(() => {
-    console.log(freelancersList);
-  }, [freelancersList]);
 
   return (
     <div>
@@ -59,6 +56,12 @@ const CardContainer = styled.div`
   grid-template-rows: repeat(6, 350px);
   grid-template-columns: repeat(2, 350px);
   justify-content: center;
+  @media (max-width: 768px) {
+    display: grid;
+    grid-template-rows: repeat(1, 200px);
+    grid-template-columns: repeat(1, 100px);
+    place-items: center;
+  }
 `;
 const CardTitre = styled.div`
   text-align: center;
@@ -68,5 +71,5 @@ const CardTitre = styled.div`
 const LoadContainer = styled.div`
   place-items: center;
   margin-top: 20%;
-`
+`;
 export default FreelanceForm;
