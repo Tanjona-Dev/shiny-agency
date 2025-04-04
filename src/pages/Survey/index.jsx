@@ -1,19 +1,21 @@
+import { useContext } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import useFetch from "../../utils/hooks";
 import { Loader } from "../../utils/Atoms";
 import { useParams } from "react-router-dom";
 import colors from "../../utils/style/colors";
 import { SurveyContext } from "../../utils/context";
-import { useContext, useEffect, useState } from "react";
 
 function Survey() {
   const { questionNumber } = useParams();
   const questionNumberInt = parseInt(questionNumber);
-  const [surveyData, setSurveyData] = useState({});
-  const [isLoad, setIsLoad] = useState(false);
   const PreviewNbr = questionNumberInt === 1 ? 1 : questionNumberInt - 1;
   const Next = questionNumberInt + 1;
-  const texteAffiche = surveyData[questionNumber];
+
+  // Hooks Custumers (useFetch)
+  const { isLoading, data } = useFetch(`http://localhost:8000/survey`);
+  const { surveyData } = data;
 
   // UseContext Button Reponse
   const { answers, saveAnswer } = useContext(SurveyContext);
@@ -21,33 +23,33 @@ function Survey() {
     saveAnswer({ [questionNumber]: answer });
   }
 
-  useEffect(() => {
-    setIsLoad(true);
-    fetch(`http://localhost:8000/survey`).then((response) =>
-      response
-        .json()
-        .then(({ surveyData }) => {
-          setSurveyData(surveyData);
-          setIsLoad(false);
-        })
-        .catch((error) => console.log(error))
-    );
-  }, []);
-  useEffect(() => {
-    console.log(answers);
-  }, [answers]);
-
   return (
     <Container>
       <H2>Question {questionNumber}</H2>
-      <Container2>{isLoad ? <Loader /> : <p> {texteAffiche}</p>}</Container2>
+      <Container2>
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <p> {surveyData && surveyData[questionNumber]}</p>
+        )}
+      </Container2>
       <div>
         <ButtonContainer>
           <div>
-            <ReplyBox onClick={() => saveReply(true)}>Oui</ReplyBox>
+            <ReplyBox
+              onClick={() => saveReply(true)}
+              $isSelected={answers[questionNumber] === true}
+            >
+              Oui
+            </ReplyBox>
           </div>
           <div>
-            <ReplyBox onClick={() => saveReply(false)}>Non</ReplyBox>
+            <ReplyBox
+              onClick={() => saveReply(false)}
+              $isSelected={answers[questionNumber] === false}
+            >
+              Non
+            </ReplyBox>
           </div>
         </ButtonContainer>
         <br />
@@ -117,7 +119,7 @@ const ReplyBox = styled.button`
   border-radius: 30px;
   cursor: pointer;
   box-shadow: ${(props) =>
-    props.isSelected ? `0px 0px 0px 2px ${colors.primary} inset` : "none"};
+    props.$isSelected ? `0px 0px 0px 2px ${colors.primary} inset` : "none"};
   &:first-child {
     margin-right: 15px;
   }
