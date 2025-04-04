@@ -1,19 +1,25 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import { Loader } from "../../utils/Atoms";
+import { useParams } from "react-router-dom";
+import colors from "../../utils/style/colors";
+import { SurveyContext } from "../../utils/context";
+import { useContext, useEffect, useState } from "react";
 
 function Survey() {
   const { questionNumber } = useParams();
   const questionNumberInt = parseInt(questionNumber);
   const [surveyData, setSurveyData] = useState({});
   const [isLoad, setIsLoad] = useState(false);
-
   const PreviewNbr = questionNumberInt === 1 ? 1 : questionNumberInt - 1;
   const Next = questionNumberInt + 1;
-
   const texteAffiche = surveyData[questionNumber];
+
+  // UseContext Button Reponse
+  const { answers, saveAnswer } = useContext(SurveyContext);
+  function saveReply(answer) {
+    saveAnswer({ [questionNumber]: answer });
+  }
 
   useEffect(() => {
     setIsLoad(true);
@@ -27,26 +33,21 @@ function Survey() {
         .catch((error) => console.log(error))
     );
   }, []);
+  useEffect(() => {
+    console.log(answers);
+  }, [answers]);
 
   return (
     <Container>
       <H2>Question {questionNumber}</H2>
-      <Container2>
-
-      {isLoad ? (
-          <Loader />
-      ) : (
-          <p> {texteAffiche}</p>
-        
-      )}
-      </Container2>
+      <Container2>{isLoad ? <Loader /> : <p> {texteAffiche}</p>}</Container2>
       <div>
         <ButtonContainer>
           <div>
-            <Button>Oui</Button>
+            <ReplyBox onClick={() => saveReply(true)}>Oui</ReplyBox>
           </div>
           <div>
-            <Button>Non</Button>
+            <ReplyBox onClick={() => saveReply(false)}>Non</ReplyBox>
           </div>
         </ButtonContainer>
         <br />
@@ -71,7 +72,7 @@ const Container = styled.div`
   justify-content: center;
   min-height: 50vh;
   padding: 20px;
-  `;
+`;
 const H2 = styled.h2`
   text-align: center;
   margin-bottom: 50px;
@@ -84,21 +85,11 @@ const ButtonContainer = styled.div`
   gap: 50px;
   justify-content: center;
   font-size: 1.2em;
-  @media(max-width: 768px){
+  @media (max-width: 768px) {
     gap: 50px;
   }
 `;
-const Button = styled.button`
-  width: 160px;
-  height: 50px;
-  border-radius: 10px;
-  margin-top: 50px;
-  @media(max-width: 768px){
-    width: auto;
-    height: auto;
-    font-size: 0.8em;
-  }
-`;
+
 const LinksContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -108,10 +99,30 @@ const LinksContainer = styled.div`
 
 const Container2 = styled.div`
   place-items: center;
-  width : 50vw;
-  height : 10vh;
-  @media(max-width: 768px){
+  width: 50vw;
+  height: 10vh;
+  @media (max-width: 768px) {
     height: 15vh;
   }
-`
+`;
+
+const ReplyBox = styled.button`
+  border: none;
+  height: 100px;
+  width: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: ${colors.backgroundLight};
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: ${(props) =>
+    props.isSelected ? `0px 0px 0px 2px ${colors.primary} inset` : "none"};
+  &:first-child {
+    margin-right: 15px;
+  }
+  &:last-of-type {
+    margin-left: 15px;
+  }
+`;
 export default Survey;
