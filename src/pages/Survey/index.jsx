@@ -10,11 +10,11 @@ import { SurveyContext } from "../../utils/context";
 function Survey() {
   const { questionNumber } = useParams();
   const questionNumberInt = parseInt(questionNumber);
-  const PreviewNbr = questionNumberInt === 1 ? 1 : questionNumberInt - 1;
   const Next = questionNumberInt + 1;
+  const PreviewNbr = questionNumberInt === 1 ? 1 : questionNumberInt - 1;
 
   // Hooks Custumers (useFetch)
-  const { isLoading, data } = useFetch(`http://localhost:8000/survey`);
+  const { isLoading, data, error } = useFetch(`http://localhost:8000/survey`);
   const { surveyData } = data;
 
   // UseContext Button Reponse
@@ -22,7 +22,9 @@ function Survey() {
   function saveReply(answer) {
     saveAnswer({ [questionNumber]: answer });
   }
-
+  if (error) {
+    return <span>Il y a un probleme</span>;
+  }
   return (
     <Container>
       <H2>Question {questionNumber}</H2>
