@@ -2,10 +2,10 @@ import { useContext } from "react";
 import styled from "styled-components";
 import useFetch from "../../utils/hooks";
 import { Loader } from "../../utils/Atoms";
+import colors from "../../utils/style/colors";
 import { StyledLink } from "../../utils/Atoms";
 import { ThemeContext } from "../../utils/context";
 import { SurveyContext } from "../../utils/context";
-import colors from "../../utils/style/colors";
 
 function formatFetchParams(answer) {
   const answerNumber = Object.keys(answer);
@@ -66,6 +66,7 @@ const ResultContainer = styled.div`
   align-items: center;
   margin: 60px 90px;
   padding: 30px;
+  background-color: ${({theme})=> theme === 'light' ? colors.backgroundLight : colors.backgroundDark}
 `;
 const LoaderWrapper = styled.div`
   display: flex;
@@ -79,7 +80,7 @@ const ResultTitle = styled.span`
   text-align: center;
   & > span {
     padding-left: 10px;
-    `;
+}`;
 
 const JobTitle = styled.span`
   color: ${({ theme }) =>

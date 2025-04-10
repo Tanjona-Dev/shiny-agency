@@ -53,9 +53,10 @@ function FreelanceForm() {
 const CardContainer = styled.div`
   display: grid;
   gap: 5%;
-  grid-template-rows: repeat(6, 350px);
+  grid-template-rows: repeat(8, 350px);
   grid-template-columns: repeat(2, 350px);
   justify-content: center;
+  margin-bottom: 10px;
   @media (max-width: 768px) {
     display: grid;
     grid-template-rows: repeat(1, 200px);
