@@ -14,6 +14,7 @@ const StyleGlobalStyle = createGlobalStyle`
      background-color: ${({ isDarkMode }) => (isDarkMode ? "#2F2E41" : "white")};
         heigth: 100vh;
         margin: 0;
+        color: ${({isDarkMode})=> (isDarkMode ? 'white' : 'black')};
     }
 `;
 export default GlobalStyle;
